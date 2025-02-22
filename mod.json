@@ -1,0 +1,39 @@
+{
+	"geode": "4.2.0",
+	"gd": {
+		"win": "2.2074"
+	},
+	"id": "pelmeshkagrom.better-search-page",
+	"name": "Better Search Page",
+	"version": "v1.0.0",
+	"dependencies": [
+		{
+			"id": "geode.node-ids",
+            "version": ">=v1.20.0",
+            "importance": "required"
+		}
+	],
+	"settings": {
+		"hide-titles": {
+			"name": "Hide titles",
+			"description": "Hides \"Quick Search\" and \"Filters\" titles.",
+			"type": "bool",
+			"default": true
+		}
+	},
+	"developer": "PelmeshkaGROM",
+	"description": "A simple mod that improves your search page",
+	"tags": [
+		"offline",
+		"enhancement",
+		"interface",
+		"customization"
+	],
+	"links": {
+		"community": "https://discord.gg/y8fqT5bP6c",
+		"source": "https://github.com/pelmeshkagrom/better-search-page"
+	},
+	"issues": {
+		"info": "If you have any issues or suggestions, [join the Discord Server!](https://discord.gg/y8fqT5bP6c)"
+	}
+}
