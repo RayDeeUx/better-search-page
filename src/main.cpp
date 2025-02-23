@@ -14,19 +14,30 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		CCSize winSize = CCDirector::get()->getWinSize();
 
 		CCNode* levelSearchBg = this->getChildByID("level-search-bg");
+		if (!levelSearchBg) return;
 		CCNode* levelSearchBarBg = this->getChildByID("level-search-bar-bg");
+		if (!levelSearchBarBg) return;
 		CCNode* searchBar = this->getChildByID("search-bar");
+		if (!searchBar) return;
 
 		CCNode* quickSearchTitle = this->getChildByID("quick-search-title");
+		if (!quickSearchTitle) return;
 		CCNode* quickSearchBG = this->getChildByID("quick-search-bg");
+		if (!quickSearchBG) return;
 		CCNode* quickSearchMenu = this->getChildByID("quick-search-menu");
+		if (!quickSearchMenu) return;
 
 		CCNode* filtersTitle = this->getChildByID("filters-title");
+		if (!filtersTitle) return;
 		CCNode* difficultyFiltersBg = this->getChildByID("difficulty-filters-bg");
+		if (!difficultyFiltersBg) return;
 		CCNode* difficultyFilterMenu = this->getChildByID("difficulty-filter-menu");
+		if (!difficultyFilterMenu) return;
 
 		CCNode* lengthFiltersBg = this->getChildByID("length-filters-bg");
+		if (!lengthFiltersBg) return;
 		CCNode* lengthFilterMenu = this->getChildByID("length-filter-menu");
+		if (!lengthFilterMenu) return;
 
 		if (isTitlesHidden) {
 			quickSearchTitle->setVisible(false);
@@ -56,6 +67,7 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		searchBar->setPositionY(levelSearchBGPosY);
 		
 		CCNode* searchButtonMenu = this->getChildByID("search-button-menu");
+		if (!searchButtonMenu) return;
 		// just... no. why??
 		/*
 		searchButtonMenu->setLayout(
