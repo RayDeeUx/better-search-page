@@ -73,7 +73,7 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 			searchBar->setPositionY(levelSearchBGPosY + 30.f);
 		} else searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 260.0f);
 
-		if (!Loader::get()->getLoadedMod("alphalaneous.pages_api")) return;
+		if (!Loader::get()->getLoadedMod("alphalaneous.pages_api") || !this->getChildByID("quick-search-menu-navigation-menu")) return;
 		Loader::get()->queueInMainThread([this, quickSearchMenu, quickSearchBG] {
 			quickSearchMenu->setPositionY(quickSearchBG->getPositionY());
 		});
