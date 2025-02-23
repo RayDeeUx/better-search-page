@@ -8,7 +8,8 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		else (void) self.setHookPriority("LevelSearchLayer::init", -3001);
 	}
 	void moveStuff() {
-		const bool isTitlesHidden = Mod::get()->getSettingValue<bool>("hide-titles");
+		geode::Mod* cleanerMenu = Loader::get()->getLoadedMod("devcmb.cleanermenu");
+		const bool isTitlesHidden = cleanerMenu || Mod::get()->getSettingValue<bool>("hide-titles");
 
 		CCSize winSize = CCDirector::get()->getWinSize();
 
@@ -65,7 +66,6 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		searchButtonMenu->setContentWidth(levelSearchBg->getContentWidth() - 11.0f);
 		searchButtonMenu->updateLayout();
 		*/
-		geode::Mod* cleanerMenu = Loader::get()->getLoadedMod("devcmb.cleanermenu");
 		if (cleanerMenu && !cleanerMenu->getSettingValue<bool>("revertSearchPageChanges")) {
 			levelSearchBg->setPositionY(levelSearchBGPosY + 15.0f);
 			searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 229.0f);
