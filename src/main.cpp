@@ -49,12 +49,14 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		lengthFilterMenu->setPositionY(filterMenuPosY);
 
 		levelSearchBg->setPositionY(30.0f);
+		const float levelSearchBGPosY = levelSearchBg->getPositionY();
 		static_cast<CCScale9Sprite*>(levelSearchBg)->setColor(ccColor3B{0, 36, 91});
-		levelSearchBarBg->setPositionY(levelSearchBg->getPositionY());
-		searchBar->setPositionY(levelSearchBg->getPositionY());
+		levelSearchBarBg->setPositionY(levelSearchBGPosY);
+		searchBar->setPositionY(levelSearchBGPosY);
+		
+		CCNode* searchButtonMenu = this->getChildByID("search-button-menu");
 		// just... no. why??
 		/*
-		auto searchButtonMenu = this->getChildByID("search-button-menu");
 		searchButtonMenu->setLayout(
 			RowLayout::create()
         		->setAxisAlignment(AxisAlignment::End)
@@ -63,13 +65,20 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		searchButtonMenu->setContentWidth(levelSearchBg->getContentWidth() - 11.0f);
 		searchButtonMenu->updateLayout();
 		*/
-		auto searchButtonMenu = this->getChildByID("search-button-menu");
 		if (Loader::get()->isModLoaded("devcmb.cleanermenu")) {
 			if (!Loader::get()->getLoadedMod("devcmb.cleanermenu")->getSettingValue<bool>("revertSearchPageChanges")) {
-				levelSearchBg->setPositionY(levelSearchBg->getPositionY() + 15.0f);
+				levelSearchBg->setPositionY(levelSearchBGPosY + 15.0f);
 				searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 229.0f);
-			} else { searchButtonMenu->setPositionY(levelSearchBg->getPositionY()); }
-		} else { searchButtonMenu->setPositionY(levelSearchBg->getPositionY()); }
+				levelSearchBarBg->setPositionY(levelSearchBarBg->getPositionY() + 30.f);
+				searchBar->setPositionY(levelSearchBGPosY);
+			} else {
+				searchButtonMenu->setPositionY(levelSearchBGPosY);
+				searchBar->setPositionY(levelSearchBGPosY);
+			}
+		} else {
+			searchButtonMenu->setPositionY(levelSearchBGPosY);
+			searchBar->setPositionY(levelSearchBGPosY);
+		}
 	}
 	bool init(int p0) {
 		if (!LevelSearchLayer::init(p0)) return false;
