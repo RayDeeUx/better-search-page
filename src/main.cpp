@@ -1,38 +1,30 @@
 #include <Geode/modify/LevelSearchLayer.hpp>
 
-#define IS_PAGES_API Loader::get()->isModLoaded("alphalaneous.pages_api")
-#define IS_CLEANER_MENU Loader::get()->isModLoaded("devcmb.cleanermenu")
-#define GET_CLEANER_MENU Loader::get()->getLoadedMod("devcmb.cleanermenu")
-
 using namespace geode::prelude;
 
 class $modify(LevelSearchLayer) {
-	void onEnter() {
-		LevelSearchLayer::onEnter();
-		log::info("logged onEnter from LSL");
+	static void onModify(auto& self) {
+		(void) self.setHookPriority("LevelSearchLayer::init", -3001);
 	}
-	bool init(int p0) {
-		if (!LevelSearchLayer::init(p0)) return false;
-
-		auto isTitlesHidden = Mod::get()->getSettingValue<bool>("hide-titles");
+	void moveStuff() {
+		const bool isTitlesHidden = Mod::get()->getSettingValue<bool>("hide-titles");
 
 		auto winSize = CCDirector::get()->getWinSize();
 
-		auto levelSearchBg = this->getChildByID("level-search-bg");
-		auto levelSearchBarBg = this->getChildByID("level-search-bar-bg");
-		auto searchBar = this->getChildByID("search-bar");
-		auto searchButtonMenu = this->getChildByID("search-button-menu");
+		CCNode* levelSearchBg = this->getChildByID("level-search-bg");
+		CCNode* levelSearchBarBg = this->getChildByID("level-search-bar-bg");
+		CCNode* searchBar = this->getChildByID("search-bar");
 
-		auto quickSearchTitle = this->getChildByID("quick-search-title");
-		auto quickSearchBg = this->getChildByID("quick-search-bg");
-		auto quickSearchMenu = this->getChildByID("quick-search-menu");
+		CCNode* quickSearchTitle = this->getChildByID("quick-search-title");
+		CCNode* quickSearchBg = this->getChildByID("quick-search-bg");
+		CCNode* quickSearchMenu = this->getChildByID("quick-search-menu");
 
-		auto filtersTitle = this->getChildByID("filters-title");
-		auto difficultyFiltersBg = this->getChildByID("difficulty-filters-bg");
-		auto difficultyFilterMenu = this->getChildByID("difficulty-filter-menu");
+		CCNode* filtersTitle = this->getChildByID("filters-title");
+		CCNode* difficultyFiltersBg = this->getChildByID("difficulty-filters-bg");
+		CCNode* difficultyFilterMenu = this->getChildByID("difficulty-filter-menu");
 
-		auto lengthFiltersBg = this->getChildByID("length-filters-bg");
-		auto lengthFilterMenu = this->getChildByID("length-filter-menu");
+		CCNode* lengthFiltersBg = this->getChildByID("length-filters-bg");
+		CCNode* lengthFilterMenu = this->getChildByID("length-filter-menu");
 
 		if (isTitlesHidden) {
 			quickSearchTitle->setVisible(false);
@@ -48,7 +40,7 @@ class $modify(LevelSearchLayer) {
 		if (!isTitlesHidden) filtersTitle->setPositionY(quickSearchBg->getPositionY() - 68.0f);
 		difficultyFiltersBg->setPositionY(isTitlesHidden ? quickSearchBg->getPositionY() - 91.0f : filtersTitle->getPositionY() - 37.0f);
 		
-		auto filterMenuPos = difficultyFilterMenu->getPositionY() + (difficultyFiltersBg->getPositionY() - dfbgPos);
+		CCPoint filterMenuPos = difficultyFilterMenu->getPositionY() + (difficultyFiltersBg->getPositionY() - dfbgPos);
 		
 		difficultyFilterMenu->setPositionY(filterMenuPos);
 
@@ -61,15 +53,23 @@ class $modify(LevelSearchLayer) {
 		searchBar->setPositionY(levelSearchBg->getPositionY());
 		// just... no. why??
 		/*
+		auto searchButtonMenu = this->getChildByID("search-button-menu");
 		searchButtonMenu->setLayout(
 			RowLayout::create()
         		->setAxisAlignment(AxisAlignment::End)
 				->setGap(7.0f)
 		);
-		*/
 		searchButtonMenu->setContentWidth(levelSearchBg->getContentWidth() - 11.0f);
 		searchButtonMenu->setPositionY(levelSearchBg->getPositionY());
 		searchButtonMenu->updateLayout();
+		*/
+	}
+	bool init(int p0) {
+		if (!LevelSearchLayer::init(p0)) return false;
+
+		Loader::get()->queueInMainThread([] {
+			MyLevelSearchLayer::moveStuff();
+		});
 
 		return true;
 	}
