@@ -65,14 +65,13 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		searchButtonMenu->setContentWidth(levelSearchBg->getContentWidth() - 11.0f);
 		searchButtonMenu->updateLayout();
 		*/
-		if (Loader::get()->isModLoaded("devcmb.cleanermenu")) {
-			if (!Loader::get()->getLoadedMod("devcmb.cleanermenu")->getSettingValue<bool>("revertSearchPageChanges")) {
-				levelSearchBg->setPositionY(levelSearchBGPosY + 15.0f);
-				searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 229.0f);
-				levelSearchBarBg->setPositionY(levelSearchBarBg->getPositionY() + 30.f);
-				searchBar->setPositionY(levelSearchBGPosY + 13.f);
-			}
-		}
+		geode::Mod* cleanerMenu = Loader::get()->getLoadedMod("devcmb.cleanermenu");
+		if (cleanerMenu && !cleanerMenu->getSettingValue<bool>("revertSearchPageChanges")) {
+			levelSearchBg->setPositionY(levelSearchBGPosY + 15.0f);
+			searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 229.0f);
+			levelSearchBarBg->setPositionY(levelSearchBarBg->getPositionY() + 30.f);
+			searchBar->setPositionY(levelSearchBGPosY + 13.f);
+		} else searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 260.0f);
 	}
 	bool init(int p0) {
 		if (!LevelSearchLayer::init(p0)) return false;
