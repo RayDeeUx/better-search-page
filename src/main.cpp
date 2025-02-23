@@ -74,7 +74,7 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		} else searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 260.0f);
 
 		if (!Loader::get()->getLoadedMod("alphalaneous.pages_api")) return;
-		Loader::get()->queueInMainThread([this] {
+		Loader::get()->queueInMainThread([this, quickSearchMenu, quickSearchBG] {
 			quickSearchMenu->setPositionY(quickSearchBG->getPositionY());
 		});
 	}
