@@ -52,7 +52,7 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		const float levelSearchBGPosY = levelSearchBg->getPositionY();
 		static_cast<CCScale9Sprite*>(levelSearchBg)->setColor(ccColor3B{0, 36, 91});
 		levelSearchBarBg->setPositionY(levelSearchBGPosY);
-		searchBar->setPositionY(levelSearchBGPosY - 70.f);
+		searchBar->setPositionY(levelSearchBGPosY);
 		
 		CCNode* searchButtonMenu = this->getChildByID("search-button-menu");
 		// just... no. why??
@@ -70,11 +70,14 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 				levelSearchBg->setPositionY(levelSearchBGPosY + 15.0f);
 				searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 229.0f);
 				levelSearchBarBg->setPositionY(levelSearchBarBg->getPositionY() + 30.f);
+				searchBar->setPositionY(levelSearchBGPosY - 70.f);
 			} else {
 				searchButtonMenu->setPositionY(levelSearchBGPosY);
+				searchBar->setPositionY(levelSearchBGPosY - 70.f);
 			}
 		} else {
 			searchButtonMenu->setPositionY(levelSearchBGPosY);
+			searchBar->setPositionY(levelSearchBGPosY - 70.f);
 		}
 	}
 	bool init(int p0) {
