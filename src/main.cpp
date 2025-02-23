@@ -68,7 +68,19 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		if (!LevelSearchLayer::init(p0)) return false;
 
 		Loader::get()->queueInMainThread([this] {
-			MyLevelSearchLayer::moveStuff();
+			Loader::get()->queueInMainThread([this] {
+				Loader::get()->queueInMainThread([this] {
+					Loader::get()->queueInMainThread([this] {
+						Loader::get()->queueInMainThread([this] {
+							Loader::get()->queueInMainThread([this] {
+								Loader::get()->queueInMainThread([this] {
+									MyLevelSearchLayer::moveStuff();
+								});
+							});
+						});
+					});
+				});
+			});
 		});
 
 		return true;
