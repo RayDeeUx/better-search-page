@@ -9,7 +9,7 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 	void moveStuff() {
 		const bool isTitlesHidden = Mod::get()->getSettingValue<bool>("hide-titles");
 
-		auto winSize = CCDirector::get()->getWinSize();
+		CCSize winSize = CCDirector::get()->getWinSize();
 
 		CCNode* levelSearchBg = this->getChildByID("level-search-bg");
 		CCNode* levelSearchBarBg = this->getChildByID("level-search-bar-bg");
@@ -35,12 +35,12 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		quickSearchBg->setPositionY(isTitlesHidden ? winSize.height - 75.0f : quickSearchTitle->getPositionY() - 69.5f);
 		quickSearchMenu->setPositionY(quickSearchBg->getPositionY() - 28.0f);
 
-        float dfbgPos = difficultyFiltersBg->getPositionY();
+        const float dfbgPos = difficultyFiltersBg->getPositionY();
 
 		if (!isTitlesHidden) filtersTitle->setPositionY(quickSearchBg->getPositionY() - 68.0f);
 		difficultyFiltersBg->setPositionY(isTitlesHidden ? quickSearchBg->getPositionY() - 91.0f : filtersTitle->getPositionY() - 37.0f);
 		
-		float filterMenuPosY = difficultyFilterMenu->getPositionY() + (difficultyFiltersBg->getPositionY() - dfbgPos);
+		const float filterMenuPosY = difficultyFilterMenu->getPositionY() + (difficultyFiltersBg->getPositionY() - dfbgPos);
 		
 		difficultyFilterMenu->setPositionY(filterMenuPosY);
 
@@ -60,27 +60,21 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 				->setGap(7.0f)
 		);
 		searchButtonMenu->setContentWidth(levelSearchBg->getContentWidth() - 11.0f);
-		searchButtonMenu->setPositionY(levelSearchBg->getPositionY());
 		searchButtonMenu->updateLayout();
 		*/
+		auto searchButtonMenu = this->getChildByID("search-button-menu");
+		if (Loader::get()->isModLoaded("devcmb.cleanermenu")) {
+			if (Loader::get()->getLoadedMod("devcmb.cleanermenu")->getSettingValue<bool>("revertSearchPageChanges")) {
+				levelSearchBg->setPositionY(levelSearchBg->getPositionY() + 15.0f);
+				searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 229.0f);
+			} else searchButtonMenu->setPositionY(levelSearchBg->getPositionY());
+		} else searchButtonMenu->setPositionY(levelSearchBg->getPositionY());
 	}
 	bool init(int p0) {
 		if (!LevelSearchLayer::init(p0)) return false;
 
 		Loader::get()->queueInMainThread([this] {
-			Loader::get()->queueInMainThread([this] {
-				Loader::get()->queueInMainThread([this] {
-					Loader::get()->queueInMainThread([this] {
-						Loader::get()->queueInMainThread([this] {
-							Loader::get()->queueInMainThread([this] {
-								Loader::get()->queueInMainThread([this] {
-									MyLevelSearchLayer::moveStuff();
-								});
-							});
-						});
-					});
-				});
-			});
+			MyLevelSearchLayer::moveStuff();
 		});
 
 		return true;
