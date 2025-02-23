@@ -38,10 +38,12 @@ class $modify(LevelSearchLayer) {
 		quickSearchBg->setPositionY(isTitlesHidden ? winSize.height - 75.0f : quickSearchTitle->getPositionY() - 69.5f);
 		quickSearchMenu->setPositionY(quickSearchBg->getPositionY() - 28.0f);
 
+        auto dfbgPos = difficultyFiltersBg->getPositionY();
+
 		if (!isTitlesHidden) filtersTitle->setPositionY(quickSearchBg->getPositionY() - 68.0f);
 		difficultyFiltersBg->setPositionY(isTitlesHidden ? quickSearchBg->getPositionY() - 91.0f : filtersTitle->getPositionY() - 37.0f);
 		
-		auto filterMenuPos = difficultyFilterMenu->getPositionY() + (difficultyFiltersBg->getPositionY() - 83.0f);
+		auto filterMenuPos = difficultyFilterMenu->getPositionY() + (difficultyFiltersBg->getPositionY() - dfbgPos);
 		
 		difficultyFilterMenu->setPositionY(filterMenuPos);
 
