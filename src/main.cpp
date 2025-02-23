@@ -17,7 +17,7 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		CCNode* searchBar = this->getChildByID("search-bar");
 
 		CCNode* quickSearchTitle = this->getChildByID("quick-search-title");
-		CCNode* quickSearchBg = this->getChildByID("quick-search-bg");
+		CCNode* quickSearchBG = this->getChildByID("quick-search-bg");
 		CCNode* quickSearchMenu = this->getChildByID("quick-search-menu");
 
 		CCNode* filtersTitle = this->getChildByID("filters-title");
@@ -33,13 +33,13 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		}
 
 		if (!isTitlesHidden) quickSearchTitle->setPositionY(winSize.height - 20.0f);
-		quickSearchBg->setPositionY(isTitlesHidden ? winSize.height - 75.0f : quickSearchTitle->getPositionY() - 69.5f);
-		quickSearchMenu->setPositionY(quickSearchBg->getPositionY() - 28.0f);
+		quickSearchBG->setPositionY(isTitlesHidden ? winSize.height - 75.0f : quickSearchTitle->getPositionY() - 69.5f);
+		quickSearchMenu->setPositionY(quickSearchBG->getPositionY() - 28.0f);
 
         const float dfbgPos = difficultyFiltersBg->getPositionY();
 
-		if (!isTitlesHidden) filtersTitle->setPositionY(quickSearchBg->getPositionY() - 68.0f);
-		difficultyFiltersBg->setPositionY(isTitlesHidden ? quickSearchBg->getPositionY() - 91.0f : filtersTitle->getPositionY() - 37.0f);
+		if (!isTitlesHidden) filtersTitle->setPositionY(quickSearchBG->getPositionY() - 68.0f);
+		difficultyFiltersBg->setPositionY(isTitlesHidden ? quickSearchBG->getPositionY() - 91.0f : filtersTitle->getPositionY() - 37.0f);
 		
 		const float filterMenuPosY = difficultyFilterMenu->getPositionY() + (difficultyFiltersBg->getPositionY() - dfbgPos);
 		
@@ -72,6 +72,11 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 			levelSearchBarBg->setPositionY(levelSearchBarBg->getPositionY() + 30.f);
 			searchBar->setPositionY(levelSearchBGPosY + 30.f);
 		} else searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 260.0f);
+
+		if (!Loader::get()->getLoadedMod("alphalaneous.pages_api")) return;
+		Loader::get()->queueInMainThread([this] {
+			quickSearchMenu->setPositionY(quickSearchBG->getPositionY());
+		});
 	}
 	bool init(int p0) {
 		if (!LevelSearchLayer::init(p0)) return false;
