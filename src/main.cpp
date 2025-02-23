@@ -65,11 +65,11 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		*/
 		auto searchButtonMenu = this->getChildByID("search-button-menu");
 		if (Loader::get()->isModLoaded("devcmb.cleanermenu")) {
-			if (Loader::get()->getLoadedMod("devcmb.cleanermenu")->getSettingValue<bool>("revertSearchPageChanges")) {
+			if (!Loader::get()->getLoadedMod("devcmb.cleanermenu")->getSettingValue<bool>("revertSearchPageChanges")) {
 				levelSearchBg->setPositionY(levelSearchBg->getPositionY() + 15.0f);
 				searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 229.0f);
-			} else searchButtonMenu->setPositionY(levelSearchBg->getPositionY());
-		} else searchButtonMenu->setPositionY(levelSearchBg->getPositionY());
+			} else { searchButtonMenu->setPositionY(levelSearchBg->getPositionY()); }
+		} else { searchButtonMenu->setPositionY(levelSearchBg->getPositionY()); }
 	}
 	bool init(int p0) {
 		if (!LevelSearchLayer::init(p0)) return false;
