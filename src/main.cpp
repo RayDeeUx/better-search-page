@@ -1,9 +1,12 @@
-#include <Geode/Geode.hpp>
 #include <Geode/modify/LevelSearchLayer.hpp>
 
 using namespace geode::prelude;
 
 class $modify(LevelSearchLayer) {
+	static void onModify(auto& self) {
+		if (Loader::get()->isModLoaded("alphalaneous.pages_api")) (void) self.setHookPriorityAfterPost("LevelSearchLayer::init", "alphalaneous.pages_api");
+		else if (Loader::get()->isModLoaded("devcmb.cleanermenu")) (void) self.setHookPriorityAfterPost("LevelSearchLayer::init", "devcmb.cleanermenu");
+	}
 	bool init(int p0) {
 		if (!LevelSearchLayer::init(p0)) return false;
 
@@ -27,8 +30,6 @@ class $modify(LevelSearchLayer) {
 		auto lengthFiltersBg = this->getChildByID("length-filters-bg");
 		auto lengthFilterMenu = this->getChildByID("length-filter-menu");
 
-		ccColor3B color(0, 36, 91);
-
 		if (isTitlesHidden) {
 			quickSearchTitle->setVisible(false);
 			filtersTitle->setVisible(false);
@@ -51,14 +52,17 @@ class $modify(LevelSearchLayer) {
 		lengthFilterMenu->setPositionY(filterMenuPos);
 
 		levelSearchBg->setPositionY(30.0f);
-		static_cast<CCScale9Sprite*>(levelSearchBg)->setColor(color);
+		static_cast<CCScale9Sprite*>(levelSearchBg)->setColor(ccColor3B{0, 36, 91});
 		levelSearchBarBg->setPositionY(levelSearchBg->getPositionY());
 		searchBar->setPositionY(levelSearchBg->getPositionY());
+		// just... no. why??
+		/*
 		searchButtonMenu->setLayout(
 			RowLayout::create()
         		->setAxisAlignment(AxisAlignment::End)
 				->setGap(7.0f)
 		);
+		*/
 		searchButtonMenu->setContentWidth(levelSearchBg->getContentWidth() - 11.0f);
 		searchButtonMenu->setPositionY(levelSearchBg->getPositionY());
 		searchButtonMenu->updateLayout();
