@@ -1,11 +1,15 @@
 #include <Geode/modify/LevelSearchLayer.hpp>
 
+#define IS_PAGES_API Loader::get()->isModLoaded("alphalaneous.pages_api")
+#define IS_CLEANER_MENU Loader::get()->isModLoaded("devcmb.cleanermenu")
+#define GET_CLEANER_MENU Loader::get()->getLoadedMod("devcmb.cleanermenu")
+
 using namespace geode::prelude;
 
 class $modify(LevelSearchLayer) {
-	static void onModify(auto& self) {
-		if (Loader::get()->isModLoaded("alphalaneous.pages_api")) (void) self.setHookPriorityAfterPost("LevelSearchLayer::init", "alphalaneous.pages_api");
-		else if (Loader::get()->isModLoaded("devcmb.cleanermenu")) (void) self.setHookPriorityAfterPost("LevelSearchLayer::init", "devcmb.cleanermenu");
+	void onEnter() {
+		LevelSearchLayer::onEnter();
+		log::info("logged onEnter from LSL");
 	}
 	bool init(int p0) {
 		if (!LevelSearchLayer::init(p0)) return false;
