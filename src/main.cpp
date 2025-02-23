@@ -70,7 +70,7 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 			levelSearchBg->setPositionY(levelSearchBGPosY + 15.0f);
 			searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 229.0f);
 			levelSearchBarBg->setPositionY(levelSearchBarBg->getPositionY() + 30.f);
-			searchBar->setPositionY(levelSearchBGPosY + 13.f);
+			searchBar->setPositionY(levelSearchBGPosY + 30.f);
 		} else searchButtonMenu->setPositionY(searchButtonMenu->getPositionY() - 260.0f);
 	}
 	bool init(int p0) {
