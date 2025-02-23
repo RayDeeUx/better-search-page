@@ -35,17 +35,17 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 		quickSearchBg->setPositionY(isTitlesHidden ? winSize.height - 75.0f : quickSearchTitle->getPositionY() - 69.5f);
 		quickSearchMenu->setPositionY(quickSearchBg->getPositionY() - 28.0f);
 
-        auto dfbgPos = difficultyFiltersBg->getPositionY();
+        float dfbgPos = difficultyFiltersBg->getPositionY();
 
 		if (!isTitlesHidden) filtersTitle->setPositionY(quickSearchBg->getPositionY() - 68.0f);
 		difficultyFiltersBg->setPositionY(isTitlesHidden ? quickSearchBg->getPositionY() - 91.0f : filtersTitle->getPositionY() - 37.0f);
 		
-		CCPoint filterMenuPos = difficultyFilterMenu->getPositionY() + (difficultyFiltersBg->getPositionY() - dfbgPos);
+		float filterMenuPosY = difficultyFilterMenu->getPositionY() + (difficultyFiltersBg->getPositionY() - dfbgPos);
 		
-		difficultyFilterMenu->setPositionY(filterMenuPos);
+		difficultyFilterMenu->setPositionY(filterMenuPosY);
 
 		lengthFiltersBg->setPositionY(difficultyFiltersBg->getPositionY() - 51.0f);
-		lengthFilterMenu->setPositionY(filterMenuPos);
+		lengthFilterMenu->setPositionY(filterMenuPosY);
 
 		levelSearchBg->setPositionY(30.0f);
 		static_cast<CCScale9Sprite*>(levelSearchBg)->setColor(ccColor3B{0, 36, 91});
