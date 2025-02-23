@@ -74,9 +74,7 @@ class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 	bool init(int p0) {
 		if (!LevelSearchLayer::init(p0)) return false;
 
-		Loader::get()->queueInMainThread([this] {
-			MyLevelSearchLayer::moveStuff();
-		});
+		MyLevelSearchLayer::moveStuff();
 
 		return true;
 	}
