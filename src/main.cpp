@@ -4,7 +4,8 @@ using namespace geode::prelude;
 
 class $modify(MyLevelSearchLayer, LevelSearchLayer) {
 	static void onModify(auto& self) {
-		(void) self.setHookPriority("LevelSearchLayer::init", -3001);
+		if (Loader::get()->isModLoaded("devcmb.cleanermenu")) (void) self.setHookPriorityAfterPost("LevelSearchLayer::init", "devcmb.cleanermenu");
+		else (void) self.setHookPriority("LevelSearchLayer::init", -3001);
 	}
 	void moveStuff() {
 		const bool isTitlesHidden = Mod::get()->getSettingValue<bool>("hide-titles");
